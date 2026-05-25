@@ -15,3 +15,12 @@ export const generateUserTokenPayload = z.object({
 });
 
 export type GenerateUserTokenPayloadType = z.infer<typeof generateUserTokenPayload>;
+
+export const signInUserWithEmailAndPasswordInput = z.object({
+  email: z.email().describe("The user's email address"),
+  password: z.string().describe("The user's password"),
+});
+
+export type signInUserWithEmailAndPasswordInputType = z.infer<
+  typeof signInUserWithEmailAndPasswordInput
+>;

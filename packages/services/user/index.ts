@@ -7,6 +7,8 @@ import {
   createUserWithEmailAndPasswordInput,
   generateUserTokenPayload,
   GenerateUserTokenPayloadType,
+  signInUserWithEmailAndPasswordInput,
+  signInUserWithEmailAndPasswordInputType,
 } from "./model";
 import { env } from "../env";
 
@@ -25,6 +27,10 @@ export class UserService {
     return { token };
   }
 
+  private async generateHash(salt: string, password: string) {
+    return createHmac("sha256", salt).update(password).digest("hex");
+  }
+
   public async createUserWithEmailAndPassword(payload: CreateUserWithEmailAndPasswordInput) {
     const { fullName, email, password } =
       await createUserWithEmailAndPasswordInput.parseAsync(payload);
@@ -35,7 +41,7 @@ export class UserService {
 
     // Calculate salt and hash the password
     const salt = randomBytes(16).toString("hex");
-    const hash = createHmac("sha256", salt).update(password).digest("hex");
+    const hash = await this.generateHash(salt, password);
 
     // create user in DB
     const userInsertResult = await db
@@ -53,6 +59,27 @@ export class UserService {
 
     return {
       id: userId,
+      token,
+    };
+  }
+
+  public async signInWithEmailAndPassword(payload: signInUserWithEmailAndPasswordInputType) {
+    const { email, password } = await signInUserWithEmailAndPasswordInput.parseAsync(payload);
+    const existingUser = await this.getUserByEmail(email);
+
+    if (!existingUser) throw new Error(`User with email ${email} does not exist.`);
+
+    if (!existingUser.salt || !existingUser.password)
+      throw new Error(`User with email ${email} has invalid credentials.`);
+
+    const hash = await this.generateHash(existingUser.salt, password);
+
+    if (hash !== existingUser.password) throw new Error(`Invalid password for email ${email}.`);
+
+    const { token } = await this.generateUserToken({ id: existingUser.id });
+
+    return {
+      id: existingUser.id,
       token,
     };
   }
