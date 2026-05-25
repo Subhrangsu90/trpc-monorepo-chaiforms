@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { z } from "zod";
@@ -31,6 +32,7 @@ type SignUpForm = z.infer<typeof signUpSchema>;
 export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const form = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -50,7 +52,7 @@ export default function SignUpPage() {
     try {
       await createUserWithEmailAndPasswordAsync(data);
       form.reset();
-      // TODO: redirect to login or dashboard
+      router.replace("/dashboard");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to create account";
       setError(message);

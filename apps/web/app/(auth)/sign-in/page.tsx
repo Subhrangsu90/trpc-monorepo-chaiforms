@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { z } from "zod";
@@ -30,6 +31,7 @@ type SignInForm = z.infer<typeof signInSchema>;
 export default function SignInPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const form = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
@@ -48,10 +50,9 @@ export default function SignInPage() {
     try {
       await signInWithEmailAndPasswordAsync(data);
       form.reset();
-      // TODO: redirect to dashboard
+      router.replace("/dashboard");
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Failed to sign in";
+      const message = err instanceof Error ? err.message : "Failed to sign in";
       setError(message);
     } finally {
       setIsLoading(false);
@@ -64,9 +65,7 @@ export default function SignInPage() {
         <div className="p-6 space-y-6">
           <div className="space-y-2 text-center">
             <h1 className="text-2xl font-bold tracking-tight">Welcome Back</h1>
-            <p className="text-sm text-muted-foreground">
-              Sign in to your Streamyst account
-            </p>
+            <p className="text-sm text-muted-foreground">Sign in to your Streamyst account</p>
           </div>
 
           {error && (
@@ -111,12 +110,7 @@ export default function SignInPage() {
                       </Link>
                     </div>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="••••••"
-                        disabled={isLoading}
-                        {...field}
-                      />
+                      <Input type="password" placeholder="••••••" disabled={isLoading} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -134,9 +128,7 @@ export default function SignInPage() {
               <div className="w-full border-t border-muted" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-card px-2 text-muted-foreground">
-                Don't have an account?
-              </span>
+              <span className="bg-card px-2 text-muted-foreground">Don't have an account?</span>
             </div>
           </div>
 
