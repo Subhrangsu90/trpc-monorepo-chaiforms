@@ -2,8 +2,9 @@
   "name": "@repo/api",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node --experimental-detect-module dist/index.js",
     "dev": "dotenv -- tsx watch ./src/index.ts",
     "build": "tsup",
     "lint": "eslint src/*"
@@ -11,23 +12,23 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@swc/core": "^1.15.8",
+    "@swc/core": "^1.15.40",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/node": "^22.15.3",
+    "@types/node": "^25.9.1",
     "dotenv-cli": "^11.0.0",
     "tsup": "^8.5.1",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@repo/trpc": "workspace:*",
     "@repo/logger": "workspace:*",
-    "@scalar/express-api-reference": "^0.8.30",
-    "@trpc/server": "^11.8.1",
-    "cors": "^2.8.5",
+    "@repo/trpc": "workspace:*",
+    "@scalar/express-api-reference": "^0.9.19",
+    "@trpc/server": "^11.17.0",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
-    "trpc-to-openapi": "^3.1.0",
-    "zod": "^4.3.5"
+    "trpc-to-openapi": "^3.3.0",
+    "zod": "^4.4.3"
   }
 }
