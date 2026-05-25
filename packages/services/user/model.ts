@@ -9,3 +9,9 @@ export const createUserWithEmailAndPasswordInput = z.object({
 export type CreateUserWithEmailAndPasswordInput = z.infer<
   typeof createUserWithEmailAndPasswordInput
 >;
+
+export const generateUserTokenPayload = z.object({
+  id: z.string().describe("The user's unique identifier"),
+});
+
+export type GenerateUserTokenPayloadType = z.infer<typeof generateUserTokenPayload>;

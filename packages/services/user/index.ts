@@ -1,7 +1,14 @@
 import { createHmac, randomBytes } from "node:crypto";
+import * as JWT from "jsonwebtoken";
 import { db, eq } from "@repo/database";
 import { usersTable } from "@repo/database/schema";
-import { CreateUserWithEmailAndPasswordInput, createUserWithEmailAndPasswordInput } from "./model";
+import {
+  CreateUserWithEmailAndPasswordInput,
+  createUserWithEmailAndPasswordInput,
+  generateUserTokenPayload,
+  GenerateUserTokenPayloadType,
+} from "./model";
+import { env } from "../env";
 
 export class UserService {
   private async getUserByEmail(email: string) {
@@ -9,6 +16,13 @@ export class UserService {
     if (!result || result.length === 0) return null;
 
     return result[0];
+  }
+
+  private async generateUserToken(payload: GenerateUserTokenPayloadType) {
+    const { id } = await generateUserTokenPayload.parseAsync(payload);
+
+    const token = JWT.sign({ id }, env.JWT_SECRET, { expiresIn: "1h" });
+    return { token };
   }
 
   public async createUserWithEmailAndPassword(payload: CreateUserWithEmailAndPasswordInput) {
@@ -34,8 +48,12 @@ export class UserService {
     if (!userInsertResult || userInsertResult.length === 0 || !userInsertResult[0]?.id)
       throw new Error(`Somthing went wrong while creating a user`);
 
+    const userId = userInsertResult[0].id;
+    const { token } = await this.generateUserToken({ id: userId });
+
     return {
-      id: userInsertResult[0]?.id,
+      id: userId,
+      token,
     };
   }
 }
