@@ -20,6 +20,32 @@ export class UserService {
     return result[0];
   }
 
+  private async verifyUserToken(token: string): Promise<GenerateUserTokenPayloadType> {
+    try {
+      const verifiedResult = JWT.verify(token, env.JWT_SECRET) as GenerateUserTokenPayloadType;
+      return verifiedResult;
+    } catch (error) {
+      throw new Error("Invalid or expired token.");
+    }
+  }
+
+  private async getUserById(id: string) {
+    const user = await db
+      .select({
+        id: usersTable.id,
+        fullName: usersTable.fullName,
+        email: usersTable.email,
+        profileImageUrl: usersTable.profileImageUrl,
+      })
+      .from(usersTable)
+      .where(eq(usersTable.id, id));
+
+    const userData = user[0];
+    if (!userData) throw new Error(`User with id ${id} does not exist.`);
+
+    return userData;
+  }
+
   private async generateUserToken(payload: GenerateUserTokenPayloadType) {
     const { id } = await generateUserTokenPayload.parseAsync(payload);
 
@@ -82,6 +108,13 @@ export class UserService {
       id: existingUser.id,
       token,
     };
+  }
+
+  public async verifyAndDecodeUserToken(token: string) {
+    const { id } = await this.verifyUserToken(token);
+    const user = await this.getUserById(id);
+
+    return { ...user };
   }
 }
 

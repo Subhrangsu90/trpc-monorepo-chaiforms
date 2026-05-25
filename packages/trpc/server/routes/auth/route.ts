@@ -1,10 +1,13 @@
 import { userService } from "../../services";
 import { publicProcedure, router } from "../../trpc";
-import { setAuthCookie } from "../../utils/cookie";
+import { TRPCError } from "@trpc/server";
+import { getAuthCookie, setAuthCookie } from "../../utils/cookie";
 import { generatePath } from "../../utils/path-generator";
 import {
   createUserWithEmailAndPasswordInputModel,
   createUserWithEmailAndPasswordOutputModel,
+  getCurrentUserInfoInput,
+  getCurrentUserInfoOutputModel,
   signInUserWithEmailAndPasswordInputModel,
   signInUserWithEmailAndPasswordOutputModel,
 } from "./model";
@@ -60,5 +63,38 @@ export const authRouter = router({
 
       setAuthCookie(ctx, token);
       return { id };
+    }),
+
+  getAuthenticatedUser: publicProcedure
+    .meta({
+      openapi: {
+        method: "GET",
+        path: getPath("/me"),
+        tags: TAGS,
+        summary: "Get the authenticated user",
+        description:
+          "This endpoint allows you to retrieve the details of the currently authenticated user. The request must include a valid authentication token, which will be used to identify the user. If the token is valid and corresponds to an active session, the user's information will be returned in the response.",
+      },
+    })
+    .input(getCurrentUserInfoInput)
+    .output(getCurrentUserInfoOutputModel)
+    .query(async ({ ctx }) => {
+      const token = getAuthCookie(ctx);
+      if (!token) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Authentication token is missing.",
+        });
+      }
+
+      const user = await userService.verifyAndDecodeUserToken(token);
+      const { id, email, fullName, profileImageUrl } = user;
+
+      return {
+        id,
+        email,
+        fullName,
+        profileImageUrl,
+      };
     }),
 });
