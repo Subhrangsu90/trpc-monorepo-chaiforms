@@ -27,3 +27,9 @@ export const getCurrentUserInfoOutputModel = z.object({
   email: z.email().describe("User's email address"),
   profileImageUrl: z.string().describe("URL of the user's profile picture").optional().nullable(),
 });
+
+export const signOutInputModel = z.undefined();
+
+export const signOutOutputModel = z.object({
+  success: z.boolean(),
+});

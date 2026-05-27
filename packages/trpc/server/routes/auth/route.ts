@@ -1,7 +1,7 @@
 import { userService } from "../../services";
 import { publicProcedure, router } from "../../trpc";
 import { TRPCError } from "@trpc/server";
-import { getAuthCookie, setAuthCookie } from "../../utils/cookie";
+import { clearAuthCookie, getAuthCookie, setAuthCookie } from "../../utils/cookie";
 import { generatePath } from "../../utils/path-generator";
 import {
   createUserWithEmailAndPasswordInputModel,
@@ -10,6 +10,8 @@ import {
   getCurrentUserInfoOutputModel,
   signInUserWithEmailAndPasswordInputModel,
   signInUserWithEmailAndPasswordOutputModel,
+  signOutInputModel,
+  signOutOutputModel,
 } from "./model";
 
 const TAGS = ["Authentication"];
@@ -96,5 +98,23 @@ export const authRouter = router({
         fullName,
         profileImageUrl,
       };
+    }),
+
+  signOut: publicProcedure
+    .meta({
+      openapi: {
+        method: "POST",
+        path: getPath("/sign-out"),
+        tags: TAGS,
+        summary: "Sign out the current user",
+        description:
+          "This endpoint clears the authentication cookie for the current browser session.",
+      },
+    })
+    .input(signOutInputModel)
+    .output(signOutOutputModel)
+    .mutation(async ({ ctx }) => {
+      clearAuthCookie(ctx);
+      return { success: true };
     }),
 });
