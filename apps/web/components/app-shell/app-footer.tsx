@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { Globe2, Languages } from "lucide-react";
 
+import { BrandLogo } from "~/components/brand-logo";
+
 export function AppFooter() {
   return (
-    <footer className="border-t border-outline-variant/30 bg-surface-container-low pb-28 pt-12 lg:py-12 lg:pl-64">
+    <footer className="bg-surface-container-low pb-28 pt-12 lg:py-12 lg:pl-64">
       <div className="mx-auto grid max-w-[1600px] grid-cols-2 gap-12 px-6 font-body md:grid-cols-4 lg:grid-cols-5 lg:px-12">
         <div className="col-span-2">
-          <h4 className="mb-4 font-display text-2xl font-bold text-primary">Sahara FormForge</h4>
+          <BrandLogo className="mb-4" markClassName="size-10" textClassName="text-2xl" />
           <p className="max-w-xs text-sm leading-relaxed text-on-surface-variant">
-            Elegant digital interactions through sun-baked simplicity and warm minimalism.
+            Smooth Material-style form building with tonal surfaces, soft elevation, and adaptable
+            accent colors.
           </p>
         </div>
         {[
@@ -33,9 +36,9 @@ export function AppFooter() {
         ))}
       </div>
 
-      <div className="mx-auto mt-12 flex max-w-[1600px] flex-col gap-4 border-t border-outline-variant/10 px-6 pt-8 sm:flex-row sm:items-center sm:justify-between lg:px-12">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/40">
-          © 2024 Sahara FormForge
+      <div className="mx-auto mt-12 flex max-w-[1600px] flex-col gap-4 px-6 pt-8 sm:flex-row sm:items-center sm:justify-between lg:px-12">
+        <p className="text-xs font-semibold text-on-surface-variant/60">
+          © 2026 Formora
         </p>
         <div className="flex gap-6">
           <Languages className="size-5 cursor-pointer text-on-surface-variant hover:text-primary" />

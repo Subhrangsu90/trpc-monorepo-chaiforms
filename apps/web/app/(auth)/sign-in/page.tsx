@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { DraftingCompass, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
 
+import { BrandLogo } from "~/components/brand-logo";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import {
@@ -62,43 +63,29 @@ export default function SignInPage() {
 
   return (
     <main className="grid h-dvh overflow-hidden bg-surface lg:grid-cols-[minmax(0,1fr)_minmax(32rem,0.82fr)]">
-      <section className="relative hidden min-h-0 items-end overflow-hidden bg-primary p-12 xl:p-16 2xl:p-20 lg:flex">
-        <div className="absolute inset-0 z-0">
-          <div
-            aria-hidden="true"
-            className="h-full w-full scale-105 bg-cover bg-center opacity-90 mix-blend-multiply transition-transform duration-[10000ms] hover:scale-100"
-            style={{
-              backgroundImage:
-                "url(https://lh3.googleusercontent.com/aida-public/AB6AXuBeL3-8eZyVoF3kpiDKjsb5A8fzFbFjhbymOuexng0QtCnKN_6CR58oSBSHvbKaZ4470vm7cskkkouNqjpwVWvpzhLzKIZ_5TIIRB2PxslSXfangGK8TMjgHI3ai3F0Z94WDd3UVhkc6wGmuN78nzv3tAeTAfk_-dffbp6__s97rsBiF0i8lGDeuubEHlgiBgJigifCt7hasHoFf6jJoxdR7ElxK_7VHAlcARlKtp-RNWJ6Nb2GtdUP3Oo2XgnNd2hCx44yE4FHFa2c)",
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        </div>
+      <section className="relative hidden min-h-0 items-end overflow-hidden bg-primary-container p-12 text-on-primary-container xl:p-16 2xl:p-20 lg:flex">
+        <div className="absolute left-16 top-16 h-48 w-48 rounded-[3rem] bg-primary/15" />
+        <div className="absolute right-12 top-28 h-64 w-64 rounded-full bg-tertiary-container/70" />
+        <div className="absolute bottom-20 right-24 h-36 w-72 rounded-full bg-surface-container-lowest/60" />
 
         <div className="relative z-10 space-y-5 2xl:space-y-6">
           <Link href="/" className="mb-5 inline-flex items-center gap-2 2xl:mb-8">
-            <span className="rounded-lg bg-surface/10 p-2 text-surface-bright backdrop-blur-md">
-              <DraftingCompass className="size-6" />
-            </span>
-            <span className="font-display text-2xl font-bold tracking-tight text-surface-bright">
-              Sahara FormForge
-            </span>
+            <BrandLogo markClassName="size-12" textClassName="text-2xl text-on-primary-container" />
           </Link>
 
-          <h1 className="max-w-xl font-display text-5xl leading-[0.9] tracking-tight text-surface-bright xl:text-7xl 2xl:text-8xl">
-            Elevate your data collection
+          <h1 className="max-w-xl font-display text-5xl font-bold leading-tight tracking-tight xl:text-7xl">
+            Smooth forms, clear workspace
           </h1>
-          <p className="max-w-md text-lg font-light leading-relaxed text-surface-bright/80 xl:text-xl">
-            Thoughtfully designed interfaces that transform complex workflows into sun-baked
-            simplicity.
+          <p className="max-w-md text-lg leading-relaxed text-on-primary-container/75 xl:text-xl">
+            Material-style surfaces, rounded controls, and soft violet-blue accents keep every form
+            workflow calm and readable.
           </p>
         </div>
       </section>
 
       <section className="flex min-h-0 flex-col items-center justify-center overflow-y-auto bg-surface p-6 md:p-8 lg:overflow-hidden lg:p-10 xl:p-14 2xl:p-20">
         <Link href="/" className="mb-6 flex w-full max-w-sm items-center gap-3 sm:max-w-md lg:hidden">
-          <DraftingCompass className="size-8 text-primary" />
-          <span className="font-display text-2xl font-bold text-primary">Sahara FormForge</span>
+          <BrandLogo markClassName="size-10" textClassName="text-2xl" />
         </Link>
 
         <div className="w-full max-w-sm space-y-5 sm:max-w-md xl:space-y-6 2xl:space-y-8">
@@ -114,7 +101,7 @@ export default function SignInPage() {
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
-              className="inline-flex h-11 items-center justify-center gap-3 rounded-lg border border-outline-variant/60 bg-surface-container-lowest px-4 font-label text-sm text-on-surface shadow-sm transition-all duration-300 hover:bg-surface-container-low"
+              className="inline-flex h-11 items-center justify-center gap-3 rounded-full bg-surface-container-low px-4 font-label text-sm text-on-surface transition-all duration-300 hover:bg-surface-container"
             >
               <svg className="size-5" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -138,7 +125,7 @@ export default function SignInPage() {
             </button>
             <button
               type="button"
-              className="inline-flex h-11 items-center justify-center gap-3 rounded-lg border border-outline-variant/60 bg-surface-container-lowest px-4 font-label text-sm text-on-surface shadow-sm transition-all duration-300 hover:bg-surface-container-low"
+              className="inline-flex h-11 items-center justify-center gap-3 rounded-full bg-surface-container-low px-4 font-label text-sm text-on-surface transition-all duration-300 hover:bg-surface-container"
             >
               <svg className="size-5" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -162,7 +149,7 @@ export default function SignInPage() {
           </div>
 
           {error && (
-            <div className="rounded-lg border border-destructive/20 bg-destructive/10 p-3">
+            <div className="rounded-3xl bg-error-container p-3">
               <p className="text-sm text-destructive">{error}</p>
             </div>
           )}
@@ -182,7 +169,7 @@ export default function SignInPage() {
                         type="email"
                         placeholder="name@example.com"
                         disabled={isLoading}
-                        className="h-11 rounded-lg border-outline-variant/60 bg-surface-container-lowest px-4 text-on-surface placeholder:text-outline focus-visible:border-primary focus-visible:ring-primary/20"
+                        className="h-12 rounded-full border-0 bg-surface-container-low px-5 text-on-surface placeholder:text-outline focus-visible:ring-2 focus-visible:ring-primary/30"
                         {...field}
                       />
                     </FormControl>
@@ -213,7 +200,7 @@ export default function SignInPage() {
                           type={showPassword ? "text" : "password"}
                           placeholder="........"
                           disabled={isLoading}
-                          className="h-11 rounded-lg border-outline-variant/60 bg-surface-container-lowest px-4 pr-11 text-on-surface placeholder:text-outline focus-visible:border-primary focus-visible:ring-primary/20"
+                          className="h-12 rounded-full border-0 bg-surface-container-low px-5 pr-11 text-on-surface placeholder:text-outline focus-visible:ring-2 focus-visible:ring-primary/30"
                           {...field}
                         />
                         <button
@@ -244,7 +231,7 @@ export default function SignInPage() {
 
               <Button
                 type="submit"
-                className="h-12 w-full rounded-lg bg-primary font-label font-bold text-on-primary shadow-sm transition-all duration-300 hover:bg-primary-container hover:text-on-primary-container hover:shadow-lg active:scale-[0.98]"
+                className="h-12 w-full rounded-full bg-primary font-label font-bold text-on-primary shadow-[0_2px_6px_rgba(0,0,0,0.16)] transition-all duration-300 hover:brightness-105 active:scale-[0.98]"
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign In to Workspace"}
@@ -253,7 +240,7 @@ export default function SignInPage() {
           </Form>
 
           <p className="text-center text-on-surface-variant">
-            New to FormForge?{" "}
+            New to Formora?{" "}
             <Link href="/sign-up" className="font-bold text-primary hover:underline">
               Create an account
             </Link>

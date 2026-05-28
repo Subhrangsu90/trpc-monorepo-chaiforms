@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { DraftingCompass, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
 
+import { BrandLogo, BrandMark } from "~/components/brand-logo";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import {
@@ -64,23 +65,26 @@ export default function SignUpPage() {
 
   return (
     <div className="grid h-dvh overflow-hidden bg-surface lg:grid-cols-[minmax(0,1fr)_minmax(32rem,0.82fr)]">
-      <section className="relative hidden min-h-0 flex-col justify-between overflow-hidden bg-surface-container p-12 lg:flex">
+      <section className="relative hidden min-h-0 flex-col justify-between overflow-hidden bg-secondary-container p-12 text-on-secondary-container lg:flex">
+        <div className="absolute left-10 top-20 h-56 w-56 rounded-[3rem] bg-primary-container" />
+        <div className="absolute right-12 top-16 h-40 w-72 rounded-full bg-tertiary-container/60" />
+        <div className="absolute bottom-24 right-20 h-52 w-52 rounded-full bg-surface-container-lowest/60" />
         <Link href="/" className="z-10 flex items-center gap-2">
-          <span className="font-display text-2xl font-bold text-primary">Sahara FormForge</span>
+          <BrandLogo markClassName="size-12" textClassName="text-2xl text-on-secondary-container" />
         </Link>
 
         <div className="relative z-10">
-          <h1 className="mb-8 max-w-lg font-headline text-6xl leading-tight text-on-surface xl:text-7xl">
-            Join the future of forms
+          <h1 className="mb-8 max-w-lg font-headline text-6xl font-bold leading-tight xl:text-7xl">
+            Create a softer workspace
           </h1>
-          <p className="max-w-sm font-body text-lg leading-relaxed text-on-surface-variant">
-            Experience the intersection of high-end design and structural integrity. Build your
-            data collection legacy with sun-baked simplicity.
+          <p className="max-w-sm font-body text-lg leading-relaxed text-on-secondary-container/75">
+            Start with smooth Material containers, pill controls, and calm accent colors that scale
+            across templates.
           </p>
         </div>
 
-        <div className="relative z-10 max-w-xs border-t border-outline-variant/40 pt-12">
-          <span className="font-label text-xs uppercase tracking-widest text-outline">
+        <div className="relative z-10 max-w-xs rounded-[2rem] bg-surface-container-lowest/60 p-6">
+          <span className="font-label text-sm font-bold text-primary">
             Selected Templates
           </span>
           <div className="mt-4 flex gap-4 opacity-60">
@@ -90,36 +94,25 @@ export default function SignUpPage() {
           </div>
         </div>
 
-        <div className="absolute inset-0 z-0">
-          <div
-            aria-hidden="true"
-            className="h-full w-full bg-cover bg-center opacity-30 mix-blend-multiply"
-            style={{
-              backgroundImage:
-                "url(https://lh3.googleusercontent.com/aida-public/AB6AXuD4_u84wiERGOXp4cmDG68QmlaNNAhd01W3QCC7GtxieZbWHiRCcBuBT97hcUJQdyam-26GD-UBiy6jL5BEwEvCmXbPnFQGoHz8Ja5xXDTUO4UEOoJNV5vUfBNf3UsBRigEqhyewEugYWFI_yHIt7zFs0qEdbULNybRLAW2oQWH0vyIY-s7zoO6AeQxQzq-_bmCH8f-s1inNQmRRwmic_boHDIF1YqoAe3gQ36ef2RvOVa8UQw3QzFzJey7SaoJAjd4WUj-PYTOvMP_)",
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-surface via-transparent to-primary/5" />
-        </div>
       </section>
 
       <section className="relative flex min-h-0 flex-col items-center justify-center overflow-y-auto bg-surface px-6 md:px-16 lg:overflow-hidden xl:px-24">
         <Link href="/" className="absolute left-8 top-8 lg:hidden">
-          <span className="font-display text-xl font-bold text-primary">Sahara FormForge</span>
+          <BrandLogo markClassName="size-9" textClassName="text-xl" />
         </Link>
 
         <div className="w-full max-w-md py-10">
           <header className="mb-8 text-center lg:text-left">
             <h2 className="mb-2 font-headline text-4xl text-on-surface">Create Account</h2>
             <p className="font-body text-on-surface-variant">
-              Start your journey into disciplined minimalism.
+              Start your smooth Material workspace.
             </p>
           </header>
 
           <div className="mb-6 grid grid-cols-2 gap-4">
             <button
               type="button"
-              className="flex h-11 items-center justify-center gap-3 rounded-lg border border-outline-variant/60 bg-surface-container-low px-4 transition-colors duration-200 hover:bg-surface-container"
+              className="flex h-11 items-center justify-center gap-3 rounded-full bg-surface-container-low px-4 transition-colors duration-200 hover:bg-surface-container"
             >
               <svg className="size-5" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -143,7 +136,7 @@ export default function SignUpPage() {
             </button>
             <button
               type="button"
-              className="flex h-11 items-center justify-center gap-3 rounded-lg border border-outline-variant/60 bg-surface-container-low px-4 transition-colors duration-200 hover:bg-surface-container"
+              className="flex h-11 items-center justify-center gap-3 rounded-full bg-surface-container-low px-4 transition-colors duration-200 hover:bg-surface-container"
             >
               <svg className="size-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
@@ -161,7 +154,7 @@ export default function SignUpPage() {
           </div>
 
           {error && (
-            <div className="mb-5 rounded-lg border border-destructive/20 bg-destructive/10 p-3">
+            <div className="mb-5 rounded-3xl bg-error-container p-3">
               <p className="text-sm text-destructive">{error}</p>
             </div>
           )}
@@ -180,7 +173,7 @@ export default function SignUpPage() {
                       <Input
                         placeholder="Evelyn Thorne"
                         disabled={isLoading}
-                        className="h-11 rounded-lg border-outline-variant bg-surface-container-lowest px-4 placeholder:text-outline/60 focus-visible:border-primary focus-visible:ring-primary/30"
+                        className="h-12 rounded-full border-0 bg-surface-container-low px-5 placeholder:text-outline/60 focus-visible:ring-2 focus-visible:ring-primary/30"
                         {...field}
                       />
                     </FormControl>
@@ -200,9 +193,9 @@ export default function SignUpPage() {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="evelyn@sahara.design"
+                        placeholder="evelyn@formora.app"
                         disabled={isLoading}
-                        className="h-11 rounded-lg border-outline-variant bg-surface-container-lowest px-4 placeholder:text-outline/60 focus-visible:border-primary focus-visible:ring-primary/30"
+                        className="h-12 rounded-full border-0 bg-surface-container-low px-5 placeholder:text-outline/60 focus-visible:ring-2 focus-visible:ring-primary/30"
                         {...field}
                       />
                     </FormControl>
@@ -225,7 +218,7 @@ export default function SignUpPage() {
                           type={showPassword ? "text" : "password"}
                           placeholder="........"
                           disabled={isLoading}
-                          className="h-11 rounded-lg border-outline-variant bg-surface-container-lowest px-4 pr-11 placeholder:text-outline/60 focus-visible:border-primary focus-visible:ring-primary/30"
+                          className="h-12 rounded-full border-0 bg-surface-container-low px-5 pr-11 placeholder:text-outline/60 focus-visible:ring-2 focus-visible:ring-primary/30"
                           {...field}
                         />
                         <button
@@ -264,7 +257,7 @@ export default function SignUpPage() {
 
               <Button
                 type="submit"
-                className="mt-4 h-12 w-full rounded-lg bg-primary px-6 font-bold text-on-primary shadow-sm transition-all duration-200 hover:bg-primary/90 active:scale-[0.98]"
+                className="mt-4 h-12 w-full rounded-full bg-primary px-6 font-bold text-on-primary shadow-[0_2px_6px_rgba(0,0,0,0.16)] transition-all duration-200 hover:brightness-105 active:scale-[0.98]"
                 disabled={isLoading}
               >
                 {isLoading ? "Creating account..." : "Create Account"}
@@ -284,7 +277,7 @@ export default function SignUpPage() {
             </p>
           </footer>
         </div>
-        <DraftingCompass className="pointer-events-none absolute bottom-12 right-12 hidden size-32 text-on-surface opacity-10 lg:block" />
+        <BrandMark className="pointer-events-none absolute bottom-12 right-12 hidden size-32 opacity-10 lg:block" />
       </section>
     </div>
   );

@@ -19,6 +19,7 @@ import {
   AppShell,
   type AppSection,
 } from "~/components/app-shell/app-shell";
+import { BrandLogo } from "~/components/brand-logo";
 import { APP_ROUTE_SECTIONS } from "~/components/app-shell/types";
 import { Button } from "~/components/ui/button";
 import { useLogout, useMe } from "~/hooks/api/auth";
@@ -66,23 +67,23 @@ function MetricCard({
   value: string;
 }) {
   const tones = {
-    primary: "text-primary group-hover:bg-primary-fixed",
-    tertiary: "text-tertiary group-hover:bg-tertiary-fixed",
-    neutral: "text-on-surface-variant group-hover:bg-surface-variant",
+    primary: "bg-primary-container text-primary",
+    tertiary: "bg-tertiary-container text-tertiary",
+    neutral: "bg-secondary-container text-secondary",
   };
 
   return (
-    <div className="group col-span-12 flex items-center justify-between rounded-3xl border border-outline-variant/30 bg-surface-container-lowest p-8 shadow-sm transition-all hover:border-primary/30 lg:col-span-4">
+    <div className="group col-span-12 flex items-center justify-between rounded-[1.75rem] bg-surface-container-low p-6 shadow-[0_1px_2px_rgba(0,0,0,0.08)] transition-all hover:bg-surface-container lg:col-span-4">
       <div>
-        <p className="mb-2 text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant/60">
+        <p className="mb-2 text-xs font-bold uppercase text-on-surface-variant/70">
           {label}
         </p>
-        <h3 className="font-display text-5xl font-bold text-on-surface">{value}</h3>
+        <h3 className="font-display text-4xl font-bold text-on-surface">{value}</h3>
       </div>
       <div
-        className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-container transition-colors ${tones[tone]}`}
+        className={`flex h-14 w-14 items-center justify-center rounded-full transition-colors ${tones[tone]}`}
       >
-        <Icon className="size-8" />
+        <Icon className="size-7" />
       </div>
     </div>
   );
@@ -90,42 +91,43 @@ function MetricCard({
 
 function OverviewDashboard({ firstName }: { firstName: string }) {
   return (
-    <div className="mx-auto max-w-[1600px] p-6 lg:p-10">
-      <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+    <div className="mx-auto max-w-[1600px] p-4 sm:p-6 lg:p-10">
+      <div className="mb-8 flex flex-col justify-between gap-6 rounded-[2rem] bg-surface-container-low p-6 md:flex-row md:items-center lg:p-8">
         <div>
-          <h2 className="mb-3 font-display text-4xl font-bold tracking-tight text-on-surface lg:text-5xl">
+          <BrandLogo className="mb-4" markClassName="size-9" textClassName="text-lg" />
+          <h2 className="mb-2 font-display text-3xl font-bold tracking-tight text-on-surface lg:text-4xl">
             Welcome back, {firstName}
           </h2>
-          <p className="font-body text-lg text-on-surface-variant">
+          <p className="font-body text-base text-on-surface-variant">
             Your workspace is performing 12% better than last month.
           </p>
         </div>
-        <div className="flex w-fit rounded-xl border border-outline-variant/20 bg-surface-container-high/40 p-1">
-          <button className="rounded-lg bg-surface-container-lowest px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-on-surface shadow-sm">
+        <div className="flex w-fit rounded-full bg-surface-container-high p-1">
+          <button className="rounded-full bg-primary px-5 py-2 text-sm font-bold text-on-primary shadow-sm">
             Last 30 Days
           </button>
-          <button className="rounded-lg px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant transition-colors hover:text-on-surface">
+          <button className="rounded-full px-5 py-2 text-sm font-bold text-on-surface-variant transition-colors hover:text-on-surface">
             Yearly
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-6">
-        <section className="relative col-span-12 flex min-h-80 flex-col justify-between overflow-hidden rounded-3xl bg-inverse-surface p-8 text-inverse-on-surface shadow-xl lg:col-span-3">
-          <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />
+        <section className="relative col-span-12 flex min-h-80 flex-col justify-between overflow-hidden rounded-[2rem] bg-primary-container p-7 text-on-primary-container shadow-[0_1px_3px_rgba(0,0,0,0.12)] lg:col-span-3">
+          <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full bg-primary/10" />
           <div className="relative z-10">
             <div className="mb-12 flex items-start justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary">
                 <Bolt className="size-6 text-on-primary" />
               </div>
-              <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-primary-fixed">
+              <span className="rounded-full bg-surface-container-lowest/70 px-3 py-1 text-xs font-bold text-primary">
                 Optimal
               </span>
             </div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-surface-variant/60">
+            <p className="mb-2 text-xs font-bold uppercase text-on-primary-container/70">
               Conversion Rate
             </p>
-            <h3 className="mb-2 font-display text-7xl font-bold text-white">64%</h3>
+            <h3 className="mb-2 font-display text-6xl font-bold text-on-primary-container">64%</h3>
             <div className="flex items-center gap-1.5 text-sm font-bold text-primary">
               <TrendingUp className="size-4" />
               <span>+4.2% from last week</span>
@@ -133,11 +135,11 @@ function OverviewDashboard({ firstName }: { firstName: string }) {
           </div>
         </section>
 
-        <section className="col-span-12 flex flex-col rounded-3xl border border-outline-variant/30 bg-surface-container p-8 lg:col-span-6">
+        <section className="col-span-12 flex flex-col rounded-[2rem] bg-surface-container-lowest p-7 shadow-[0_1px_3px_rgba(0,0,0,0.10)] lg:col-span-6">
           <div className="mb-8 flex items-center justify-between">
-            <h3 className="font-display text-2xl font-bold text-on-surface">Response Trends</h3>
+            <h3 className="font-display text-xl font-bold text-on-surface">Response Trends</h3>
             <a
-              className="flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-widest text-primary hover:underline"
+              className="flex items-center gap-1 rounded-full px-3 py-2 text-sm font-bold text-primary hover:bg-primary-container"
               href="#"
             >
               Full Report <ExternalLink className="size-3" />
@@ -151,10 +153,10 @@ function OverviewDashboard({ firstName }: { firstName: string }) {
           </div>
         </section>
 
-        <section className="col-span-12 flex flex-col rounded-3xl border border-outline-variant/20 bg-surface-container-low p-8 lg:col-span-3">
+        <section className="col-span-12 flex flex-col rounded-[2rem] bg-surface-container p-7 lg:col-span-3">
           <div className="mb-6 flex items-center justify-between">
-            <h3 className="font-display text-2xl font-bold text-on-surface">Activity</h3>
-            <button className="text-[10px] font-bold uppercase text-primary hover:underline">
+            <h3 className="font-display text-xl font-bold text-on-surface">Activity</h3>
+            <button className="rounded-full px-3 py-2 text-sm font-bold text-primary hover:bg-primary-container">
               View All
             </button>
           </div>
@@ -173,7 +175,7 @@ function OverviewDashboard({ firstName }: { firstName: string }) {
                 bg: "bg-tertiary-fixed/30",
                 text: "text-tertiary",
                 title: "Feedback received:",
-                accent: '"Great desert theme!"',
+                accent: '"The smooth theme feels clean"',
                 time: "1h ago",
               },
               {
@@ -206,27 +208,25 @@ function OverviewDashboard({ firstName }: { firstName: string }) {
         <MetricCard icon={MessageSquare} label="Total Responses" tone="tertiary" value="1.2k" />
         <MetricCard icon={CheckCircle} label="Active Forms" tone="neutral" value="8" />
 
-        <section className="relative col-span-12 mt-4 flex min-h-[340px] items-center overflow-hidden rounded-[2rem] border border-outline-variant/30 bg-surface-container-highest p-8 lg:p-12">
+        <section className="relative col-span-12 mt-4 flex min-h-[320px] items-center overflow-hidden rounded-[2.25rem] bg-secondary-container p-8 text-on-secondary-container lg:p-12">
           <div className="relative z-10 max-w-2xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-primary">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-surface-container-lowest/60 px-4 py-2 text-primary">
               <Sparkles className="size-4" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">
-                New Engine Update
-              </span>
+              <span className="text-sm font-bold">Material refresh</span>
             </div>
-            <h2 className="mb-5 font-display text-4xl font-bold leading-tight text-on-surface lg:text-5xl">
-              Elevate your brand with Custom Themes
+            <h2 className="mb-5 font-display text-3xl font-bold leading-tight text-on-secondary-container lg:text-4xl">
+              Build calm, rounded forms with Material-style themes
             </h2>
-            <p className="mb-8 font-body text-lg leading-relaxed text-on-surface-variant opacity-90">
-              Bespoke typography and organic textures. Make your forms feel like high-end editorial
-              pieces.
+            <p className="mb-8 font-body text-lg leading-relaxed text-on-secondary-container/80">
+              Smooth tonal surfaces, pill controls, soft elevation, and adaptable violet-blue
+              accents make the workspace feel modern and easy to scan.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <button className="flex items-center justify-center gap-3 rounded-2xl bg-primary px-8 py-4 font-extrabold text-on-primary shadow-xl shadow-primary/10 transition-all hover:brightness-110">
+              <button className="flex items-center justify-center gap-3 rounded-full bg-primary px-8 py-4 font-bold text-on-primary shadow-[0_2px_6px_rgba(0,0,0,0.16)] transition-all hover:brightness-105">
                 <span>Explore Themes</span>
                 <ArrowRight className="size-5" />
               </button>
-              <button className="rounded-2xl border border-outline-variant bg-surface-container-lowest px-8 py-4 font-bold text-on-surface transition-all hover:bg-surface-container">
+              <button className="rounded-full bg-surface-container-lowest/70 px-8 py-4 font-bold text-on-secondary-container transition-all hover:bg-surface-container-lowest">
                 Learn more
               </button>
             </div>
@@ -240,7 +240,7 @@ function OverviewDashboard({ firstName }: { firstName: string }) {
                   "url(https://lh3.googleusercontent.com/aida-public/AB6AXuBoPLvDp7_YJCHV0zEqKTrNWDz7J14jRa9eqac6rpeXr0VpCaSkhKHumi7RCuH8Iw8DS9vxavTiWiY2hvzFwTXjTGpo7HgIjFBKQxG5qPGGgBr79jph02JFd9eQQId9j6JqxVLb0XjwL85bVWfcYqSDb4YZ3UceX9HB8DWpQD_-5uslLRn968Qya4BUgGD6uVq69n7jmUUIm7jQ2LQUqz5M6YR0KEdL60Lz473qbLhWThqrs3eMvpFrI1XjJN-1TMUNd9enT-vDGaL3)",
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-surface-container-highest" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-secondary-container" />
           </div>
         </section>
       </div>
@@ -251,11 +251,11 @@ function OverviewDashboard({ firstName }: { firstName: string }) {
 function SectionPlaceholder({ section }: { section: AppSection }) {
   return (
     <div className="mx-auto max-w-[1600px] p-6 lg:p-10">
-      <section className="flex min-h-[70vh] flex-col justify-center rounded-3xl border border-outline-variant/30 bg-surface-container p-10">
-        <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-          Sahara FormForge
+      <section className="flex min-h-[70vh] flex-col justify-center rounded-[2rem] bg-surface-container-low p-10">
+        <p className="mb-3 text-sm font-bold text-primary">
+          Formora
         </p>
-        <h2 className="mb-4 font-display text-5xl font-bold text-on-surface">
+        <h2 className="mb-4 font-display text-4xl font-bold text-on-surface">
           {sectionLabels[section]}
         </h2>
         <p className="max-w-xl text-lg leading-relaxed text-on-surface-variant">
@@ -283,7 +283,7 @@ export default function Dashboard() {
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-surface">
-        <h1 className="font-display text-3xl text-on-surface">Sahara FormForge</h1>
+        <BrandLogo markClassName="size-10" textClassName="text-3xl" />
       </div>
     );
   }
