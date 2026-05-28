@@ -14,8 +14,11 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "ChaiForms",
+  title: "Formora",
   description: "A form builder for developers.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({

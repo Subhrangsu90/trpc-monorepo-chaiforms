@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+import { BrandLogo } from "~/components/brand-logo";
 import { Button } from "~/components/ui/button";
 import { useMe } from "~/hooks/api/auth";
 
@@ -22,7 +23,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <main className="min-h-screen min-w-screen flex justify-center items-center">
-        <h1 className="text-3xl">ChaiForms</h1>
+        <BrandLogo markClassName="size-10" textClassName="text-3xl" />
       </main>
     );
   }
@@ -30,7 +31,7 @@ export default function Home() {
   return (
     <main className="min-h-screen min-w-screen flex justify-center items-center">
       <div className="space-y-4 text-center">
-        <h1 className="text-3xl">ChaiForms</h1>
+        <BrandLogo className="justify-center" markClassName="size-10" textClassName="text-3xl" />
         {me && !isError ? (
           <h2>Welcome, {me.fullName}!</h2>
         ) : (
