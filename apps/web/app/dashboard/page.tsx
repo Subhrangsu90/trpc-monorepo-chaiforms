@@ -12,13 +12,14 @@ import {
   TrendingUp,
   Upload,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import {
   AppShell,
   type AppSection,
 } from "~/components/app-shell/app-shell";
+import { APP_ROUTE_SECTIONS } from "~/components/app-shell/types";
 import { Button } from "~/components/ui/button";
 import { useLogout, useMe } from "~/hooks/api/auth";
 
@@ -267,10 +268,11 @@ function SectionPlaceholder({ section }: { section: AppSection }) {
 }
 
 export default function Dashboard() {
-  const [activeSection, setActiveSection] = useState<AppSection>("overview");
   const { me, isLoading, isError } = useMe();
   const { signOutAsync } = useLogout();
+  const pathname = usePathname();
   const router = useRouter();
+  const activeSection: AppSection = APP_ROUTE_SECTIONS[pathname] ?? "overview";
 
   useEffect(() => {
     if (!isLoading && !me) {
@@ -308,7 +310,6 @@ export default function Dashboard() {
     <AppShell
       activeSection={activeSection}
       onLogout={handleLogout}
-      onSectionChange={setActiveSection}
       user={me}
     >
       {activeSection === "overview" ? (

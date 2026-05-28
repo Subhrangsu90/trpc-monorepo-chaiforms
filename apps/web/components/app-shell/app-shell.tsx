@@ -11,7 +11,6 @@ type AppShellProps = {
   activeSection: AppSection;
   children: ReactNode;
   onLogout: () => void;
-  onSectionChange: (section: AppSection) => void;
   user: AppUser;
 };
 
@@ -19,12 +18,11 @@ export function AppShell({
   activeSection,
   children,
   onLogout,
-  onSectionChange,
   user,
 }: AppShellProps) {
   return (
     <div className="min-h-screen bg-surface">
-      <AppSidebar activeSection={activeSection} onSectionChange={onSectionChange} user={user} />
+      <AppSidebar activeSection={activeSection} user={user} />
       <AppHeader onLogout={onLogout} user={user} />
       <main className="min-h-screen pb-20 pt-16 lg:pb-0 lg:pl-64">{children}</main>
       <AppFooter />

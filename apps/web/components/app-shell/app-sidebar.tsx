@@ -16,23 +16,23 @@ import {
 } from "lucide-react";
 
 import type { AppSection, AppUser } from "~/components/app-shell/types";
+import { APP_SECTION_ROUTES } from "~/components/app-shell/types";
 import { cn } from "~/lib/utils";
 
 type AppSidebarProps = {
   activeSection: AppSection;
-  onSectionChange: (section: AppSection) => void;
   user: AppUser;
 };
 
 const navItems = [
-  { id: "overview", label: "Overview", icon: LayoutDashboard },
-  { id: "forms", label: "My Forms", icon: FileText },
-  { id: "templates", label: "Templates", icon: Sparkles },
-  { id: "analytics", label: "Analytics", icon: BarChart3 },
-  { id: "responses", label: "Responses", icon: MessageSquare },
-  { id: "themes", label: "Themes", icon: Palette },
-  { id: "integrations", label: "Integration", icon: Cable },
-] satisfies Array<{ id: AppSection; label: string; icon: ElementType }>;
+  { id: "overview", label: "Overview", icon: LayoutDashboard, href: APP_SECTION_ROUTES.overview },
+  { id: "forms", label: "My Forms", icon: FileText, href: APP_SECTION_ROUTES.forms },
+  { id: "templates", label: "Templates", icon: Sparkles, href: APP_SECTION_ROUTES.templates },
+  { id: "analytics", label: "Analytics", icon: BarChart3, href: APP_SECTION_ROUTES.analytics },
+  { id: "responses", label: "Responses", icon: MessageSquare, href: APP_SECTION_ROUTES.responses },
+  { id: "themes", label: "Themes", icon: Palette, href: APP_SECTION_ROUTES.themes },
+  { id: "integrations", label: "Integration", icon: Cable, href: APP_SECTION_ROUTES.integrations },
+] satisfies Array<{ id: AppSection; label: string; icon: ElementType; href: string }>;
 
 function UserAvatar({ user }: { user: AppUser }) {
   if (user.profileImageUrl) {
@@ -57,7 +57,7 @@ function UserAvatar({ user }: { user: AppUser }) {
   );
 }
 
-export function AppSidebar({ activeSection, onSectionChange, user }: AppSidebarProps) {
+export function AppSidebar({ activeSection, user }: AppSidebarProps) {
   return (
     <>
       <aside className="fixed left-0 top-0 z-50 hidden h-screen w-64 flex-col border-r border-outline-variant/60 bg-surface-container-low py-4 lg:flex">
@@ -71,14 +71,13 @@ export function AppSidebar({ activeSection, onSectionChange, user }: AppSidebarP
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-2">
-          {navItems.map(({ id, label, icon: Icon }) => {
+          {navItems.map(({ id, label, icon: Icon, href }) => {
             const isActive = activeSection === id;
 
             return (
-              <button
+              <Link
                 key={id}
-                type="button"
-                onClick={() => onSectionChange(id)}
+                href={href}
                 className={cn(
                   "flex w-full items-center rounded-xl px-4 py-3 text-left transition-all duration-200 active:scale-95",
                   isActive
@@ -88,7 +87,7 @@ export function AppSidebar({ activeSection, onSectionChange, user }: AppSidebarP
               >
                 <Icon className="mr-3 size-5" />
                 <span className="font-body text-sm">{label}</span>
-              </button>
+              </Link>
             );
           })}
         </nav>
@@ -117,14 +116,13 @@ export function AppSidebar({ activeSection, onSectionChange, user }: AppSidebarP
 
       <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-outline-variant/40 bg-surface/95 px-2 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-2 shadow-[0_-12px_30px_rgba(0,0,0,0.08)] backdrop-blur-md lg:hidden">
         <div className="mx-auto grid max-w-md grid-cols-7 gap-1">
-          {navItems.map(({ id, label, icon: Icon }) => {
+          {navItems.map(({ id, label, icon: Icon, href }) => {
             const isActive = activeSection === id;
 
             return (
-              <button
+              <Link
                 key={id}
-                type="button"
-                onClick={() => onSectionChange(id)}
+                href={href}
                 aria-label={label}
                 title={label}
                 className={cn(
@@ -135,7 +133,7 @@ export function AppSidebar({ activeSection, onSectionChange, user }: AppSidebarP
                 )}
               >
                 <Icon className="size-5" />
-              </button>
+              </Link>
             );
           })}
         </div>
